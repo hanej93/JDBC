@@ -1,6 +1,7 @@
 package ex1;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,8 +19,19 @@ public class Program {
 		ResultSet rs = st.executeQuery(sql);
 		
 		if(rs.next()) {
+			int id = rs.getInt("id");
 			String title = rs.getString("title");
-			System.out.println(title);
+			String writerId = rs.getString("writer_id");
+			Date regDate = rs.getDate("regdate");
+			String content = rs.getString("content");
+			int hit = rs.getInt("hit");
+			System.out.printf("id: %d\n"
+					+ "title: %s\n"
+					+ "writerId: %s\n"
+					+ "regDate: %s\n"
+					+ "content: %s\n"
+					+ "hit: %s\n"
+					, id, title, writerId, regDate, content, hit);
 		}
 		rs.close();
 		st.close();
