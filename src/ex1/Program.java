@@ -18,7 +18,7 @@ public class Program {
 		Statement st = con.createStatement();
 		ResultSet rs = st.executeQuery(sql);
 		
-		if(rs.next()) {
+		while(rs.next()) {
 			int id = rs.getInt("id");
 			String title = rs.getString("title");
 			String writerId = rs.getString("writer_id");
