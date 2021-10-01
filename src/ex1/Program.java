@@ -11,7 +11,8 @@ public class Program {
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		String url = "jdbc:mysql://localhost/newlecture";
-		String sql = "select * from notice where hit > 10";
+//		String sql = "select * from notice where hit > 10";
+		String sql = "select * from notice";
 		
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		Connection con = DriverManager.getConnection(url,"root","mysql");

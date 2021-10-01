@@ -19,8 +19,9 @@ public class NoticeService {
 	private String pwd = "mysql";
 	private String driver = "com.mysql.cj.jdbc.Driver";
 	
-	public List<?> getList() throws ClassNotFoundException, SQLException{
-		String sql = "select * from notice where hit > 10";
+	public List<Notice> getList() throws ClassNotFoundException, SQLException{
+//		String sql = "select * from notice where hit > 10";
+		String sql = "select * from notice";
 		
 		Class.forName(driver);
 		Connection con = DriverManager.getConnection(url, uid, pwd);
@@ -47,6 +48,7 @@ public class NoticeService {
 								hit,
 								files
 							);
+			list.add(notice);
 			
 		}
 		rs.close();
