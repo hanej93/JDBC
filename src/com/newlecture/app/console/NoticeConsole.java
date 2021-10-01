@@ -17,7 +17,7 @@ public class NoticeConsole {
 	}
 	
 	public void printNoticeList() throws ClassNotFoundException, SQLException {
-		List<Notice> list = service.getList();
+		List<Notice> list = service.getList(2);
 		
 		
 		System.out.println("────────────────────────────────");

@@ -19,14 +19,20 @@ public class NoticeService {
 	private String pwd = "mysql";
 	private String driver = "com.mysql.cj.jdbc.Driver";
 	
-	public List<Notice> getList() throws ClassNotFoundException, SQLException{
-//		String sql = "select * from notice where hit > 10";
-		String sql = "select * from notice";
+	public List<Notice> getList(int page) throws ClassNotFoundException, SQLException{
+		
+		int pageCnt = 10;
+		int start = (page-1) * pageCnt;
+		
+		String sql = "select * from notice order by regdate desc limit ?, ?;";
 		
 		Class.forName(driver);
 		Connection con = DriverManager.getConnection(url, uid, pwd);
-		Statement st = con.createStatement();
-		ResultSet rs = st.executeQuery(sql);
+		PreparedStatement st = con.prepareStatement(sql);
+		st.setInt(1, start);
+		st.setInt(2, pageCnt);
+		ResultSet rs = st.executeQuery();
+		
 		
 		List<Notice> list = new ArrayList<Notice>();
 		
