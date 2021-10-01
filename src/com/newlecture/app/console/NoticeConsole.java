@@ -12,18 +12,20 @@ public class NoticeConsole {
 
 	private NoticeService service;
 	private int page;
+	private int count;
 	
 	public NoticeConsole() {
 		service = new NoticeService();
 		page = 1;
+		count = 0;
 	}
 	
 	public void printNoticeList() throws ClassNotFoundException, SQLException {
 		List<Notice> list = service.getList(page);
-		
+		count = service.getCount();
 		
 		System.out.println("────────────────────────────────");
-		System.out.printf("<공지사항> 총 %d 게시글\n", 12);
+		System.out.printf("<공지사항> 총 %d 게시글\n", count);
 		System.out.println("────────────────────────────────");
 		
 		for(Notice n : list)
