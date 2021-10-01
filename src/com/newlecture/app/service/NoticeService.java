@@ -19,18 +19,19 @@ public class NoticeService {
 	private String pwd = "mysql";
 	private String driver = "com.mysql.cj.jdbc.Driver";
 	
-	public List<Notice> getList(int page) throws ClassNotFoundException, SQLException{
+	public List<Notice> getList(int page, String field, String query) throws ClassNotFoundException, SQLException{
 		
 		int onePageCnt = 10;
 		int start = (page-1) * onePageCnt;
 		
-		String sql = "select * from notice order by regdate desc limit ?, ?;";
+		String sql = "select * from notice where "+ field +" like ? order by regdate desc limit ?, ?;";
 		
 		Class.forName(driver);
 		Connection con = DriverManager.getConnection(url, uid, pwd);
 		PreparedStatement st = con.prepareStatement(sql);
-		st.setInt(1, start);
-		st.setInt(2, onePageCnt);
+		st.setString(1, "%"+query+"%");
+		st.setInt(2, start);
+		st.setInt(3, onePageCnt);
 		ResultSet rs = st.executeQuery();
 		
 		

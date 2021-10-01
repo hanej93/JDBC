@@ -12,14 +12,18 @@ public class NoticeConsole {
 
 	private NoticeService service;
 	private int page;
+	private String searchWord;
+	private String searchField;
 	
 	public NoticeConsole() {
 		service = new NoticeService();
 		page = 1;
+		searchField = "title";
+		searchWord = "";
 	}
 	
 	public void printNoticeList() throws ClassNotFoundException, SQLException {
-		List<Notice> list = service.getList(page);
+		List<Notice> list = service.getList(page, searchField, searchWord);
 		int count = service.getCount();
 		int lastPage = count/10;
 		lastPage = count%10 > 0 ? lastPage+1:lastPage;
@@ -42,7 +46,7 @@ public class NoticeConsole {
 		
 		Scanner scan = new Scanner(System.in);
 		
-		System.out.println("1. 상세조회 / 2. 이전 / 3. 다음 / 4. 글쓰기 / 5. 종료");
+		System.out.println("1. 상세조회 / 2. 이전 / 3. 다음 / 4. 글쓰기 / 5. 검색 / 6. 종료");
 		String menu_ = scan.nextLine();
 		int menu = Integer.parseInt(menu_);
 		
@@ -71,6 +75,16 @@ public class NoticeConsole {
 			return;
 		}
 		page++;
+	}
+
+	public void inputSearchWord() {
+		Scanner scan = new Scanner(System.in);
+		System.out.println("검색 범주 (title/content/writerId_중에 하나를 입력하세요.");
+		System.out.print(" > ");
+		searchField = scan.nextLine();
+		
+		System.out.print("검색어 > ");
+		searchWord = scan.nextLine();
 	}
 
 }
