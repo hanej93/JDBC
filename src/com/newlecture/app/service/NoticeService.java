@@ -21,8 +21,8 @@ public class NoticeService {
 	
 	public List<Notice> getList(int page) throws ClassNotFoundException, SQLException{
 		
-		int pageCnt = 10;
-		int start = (page-1) * pageCnt;
+		int onePageCnt = 10;
+		int start = (page-1) * onePageCnt;
 		
 		String sql = "select * from notice order by regdate desc limit ?, ?;";
 		
@@ -30,7 +30,7 @@ public class NoticeService {
 		Connection con = DriverManager.getConnection(url, uid, pwd);
 		PreparedStatement st = con.prepareStatement(sql);
 		st.setInt(1, start);
-		st.setInt(2, pageCnt);
+		st.setInt(2, onePageCnt);
 		ResultSet rs = st.executeQuery();
 		
 		

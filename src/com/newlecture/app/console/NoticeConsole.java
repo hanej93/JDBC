@@ -12,17 +12,17 @@ public class NoticeConsole {
 
 	private NoticeService service;
 	private int page;
-	private int count;
 	
 	public NoticeConsole() {
 		service = new NoticeService();
 		page = 1;
-		count = 0;
 	}
 	
 	public void printNoticeList() throws ClassNotFoundException, SQLException {
 		List<Notice> list = service.getList(page);
-		count = service.getCount();
+		int count = service.getCount();
+		int lastPage = count/10;
+		lastPage = count%10 > 0 ? lastPage+1:lastPage;
 		
 		System.out.println("────────────────────────────────");
 		System.out.printf("<공지사항> 총 %d 게시글\n", count);
@@ -35,7 +35,7 @@ public class NoticeConsole {
 							n.getWriterId(),
 							n.getRegDate());
 		System.out.println("────────────────────────────────");
-		System.out.printf("            %d/%d pages\n", 1, 2);
+		System.out.printf("            %d/%d pages\n", page, lastPage);
 	}
 
 	public int inputNoticeMenu() {
@@ -51,17 +51,25 @@ public class NoticeConsole {
 
 	public void movePrevList() {
 		if(page == 1) {
+			System.out.println("=================");
 			System.out.println("이전 페이지가 없습니다.");
+			System.out.println("=================");
 			return;
 		}
 		page--;
 	}
 
-	public void moveNextList() {
-//		if(page == ?) {
-//			System.out.println("다음 페이지가 없습니다.");
-//			return;
-//		}
+	public void moveNextList() throws ClassNotFoundException, SQLException {
+		int count = service.getCount();
+		int lastPage = count/10;
+		lastPage = count%10 > 0 ? lastPage+1:lastPage;
+		
+		if(page == lastPage) {
+			System.out.println("=================");
+			System.out.println("다음 페이지가 없습니다.");
+			System.out.println("=================");
+			return;
+		}
 		page++;
 	}
 
